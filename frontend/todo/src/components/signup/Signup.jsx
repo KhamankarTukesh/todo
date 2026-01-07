@@ -3,6 +3,7 @@ import "./Signup.css";
 import HeadingComp from "./HeadingComp";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import API_BASE_URL from "../../config";
 
 const Signup = () => {
     const history = useNavigate();
@@ -19,7 +20,8 @@ const Signup = () => {
     }
     const submit = async (e) => {
         e.preventDefault();
-        await axios.post(`${window.location.origin}/api/v1/register`, Input).then((res) => {
+        try {
+            const res = await axios.post(`${API_BASE_URL}/api/v1/register`, Input);
             if (res.data.message === "Email already exists") {
                 alert(res.data.message);
             } else {
@@ -31,12 +33,10 @@ const Signup = () => {
                 });
                 history("/signin");
             }
-
-
-        });
-
-
-
+        } catch (error) {
+            console.error("Signup error:", error);
+            alert("An error occurred during signup. Please try again.");
+        }
     }
     return (
         <div className="signup">

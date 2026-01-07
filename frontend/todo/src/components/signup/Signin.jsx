@@ -25,15 +25,15 @@ const Signin = () => {
 
     const submit = async (e) => {
         e.preventDefault();
-        await axios.post(`${window.location.origin}/api/v1/signin`, Input)
-            .then((res) => {
-                sessionStorage.setItem("id", res.data.others._id);
-                dispatch(authActions.login(res.data.others));
-                history("/todo");
-            });
-
-
-
+        try {
+            const res = await axios.post(`${API_BASE_URL}/api/v1/signin`, Input);
+            sessionStorage.setItem("id", res.data.others._id);
+            dispatch(authActions.login(res.data.others));
+            history("/todo");
+        } catch (error) {
+            console.error("Signin error:", error);
+            alert("An error occurred during signin. Please try again.");
+        }
     }
 
 

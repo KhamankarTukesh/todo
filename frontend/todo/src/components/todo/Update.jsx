@@ -26,7 +26,7 @@ const Update = ({ display, update, updateArray }) => {
     }
     if (updateArray) {
       try {
-        const response = await axios.put(`${window.location.origin}/api/v2/updateTask/${update._id}`, {
+        const response = await axios.put(`${API_BASE_URL}/api/v2/updateTask/${update._id}`, {
           title: Input.title,
           body: Input.body,
           id: sessionStorage.getItem("id")

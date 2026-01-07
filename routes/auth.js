@@ -7,16 +7,23 @@ router.post("/register", async (req, res) => {
     try {
         const { email, username, password } = req.body;
 
-       const hashPassword = await bcrypt.hash(password, 10);
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email already exists" });
+        }
+
+        const hashPassword = await bcrypt.hash(password, 10);
 
         // Save user
-        const user = new User({ email, username, password:hashPassword });
+        const user = new User({ email, username, password: hashPassword });
         await user.save();
 
-        return res.status(200).json({ message: "User registered successfully", user });
-        
+        return res.status(201).json({ message: "User registered successfully" });
+
     } catch (e) {
-        return res.status(200).json({ message: "Email already exists" });
+        console.error("Registration error:", e);
+        return res.status(500).json({ message: "Internal server error" });
     }
 });
 
@@ -25,18 +32,20 @@ router.post("/register", async (req, res) => {
 router.post("/signin", async (req, res) => {
     try {
         const user = await User.findOne({email: req.body.email});
-        const isPasswordCorrect = bcrypt.compareSync(req.body.password,user.password);
         if(!user) {
-              return res.status(200).json({ message: "Please Sign up first" });
+              return res.status(401).json({ message: "Please sign up first" });
         }
+
+        const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password);
         if(!isPasswordCorrect) {
-              return res.status(200).json({ message: "Incorrect Password!!" });
+              return res.status(401).json({ message: "Incorrect password" });
         }
 
         const {password, ...others } = user._doc;
        return res.status(200).json({others});
     } catch (e) {
-        return res.status(200).json({ message: "user already exists" });
+        console.error("Signin error:", e);
+        return res.status(500).json({ message: "Internal server error" });
     }
 });
 

@@ -40,7 +40,7 @@ const Todo = () => {
     } else {
       if (id) {
         try {
-          const response = await axios.post("http://localhost:8080/api/v2/addTask", {
+          const response = await axios.post(`${API_BASE_URL}/api/v2/addTask`, {
             title: Input.title,
             body: Input.body,
             id: id
@@ -97,7 +97,7 @@ const update = (value) => {
     if (tempTasks.length > 0) {
       try {
         for (const task of tempTasks) {
-          await axios.post(`${window.location.origin}/api/v2/addTask`, {
+          await axios.post(`${API_BASE_URL}/api/v2/addTask`, {
             title: task.title,
             body: task.body,
             id: id
@@ -129,7 +129,7 @@ const update = (value) => {
 
         // Fetch user's tasks
         try {
-          const res = await axios.get(`${window.location.origin}/api/v2/getTask/${id}`);
+          const res = await axios.get(`${API_BASE_URL}/api/v2/getTask/${id}`);
           setArray(res.data.list);
         } catch (error) {
           console.error("Error fetching tasks:", error);

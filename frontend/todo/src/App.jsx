@@ -11,13 +11,14 @@ import { useEffect } from "react";
 import { authActions } from "./store";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import API_BASE_URL from "./config";
 
 const App = () =>{
   const dispatch = useDispatch();
 useEffect(() => {
  const id = sessionStorage.getItem("id");
   if(id){
-    axios.get(`http://localhost:8080/api/v1/getUser/${id}`)
+    axios.get(`${API_BASE_URL}/api/v1/getUser/${id}`)
       .then((res) => {
         dispatch(authActions.login(res.data.user));
       })
