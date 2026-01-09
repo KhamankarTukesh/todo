@@ -28,7 +28,7 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item mx-2 my-2 ">
-                <Link className="nav-Link active text-decoration-none text-black  p-lg-0 p-2 " aria-current="page" to="#">Home</Link>
+                <Link className="nav-Link active text-decoration-none text-black  p-lg-0 p-2 " aria-current="page" to="/home">Home</Link>
               </li>
               <li className="nav-item mx-2 my-2 ">
                 <Link className="nav-Link active text-decoration-none text-black   p-lg-0 p-2" aria-current="page" to="/about">About Us</Link>

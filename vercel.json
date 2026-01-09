@@ -8,19 +8,23 @@
     {
       "src": "frontend/todo/package.json",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "config": { "distDir": "dist" }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/app.js"
+      "dest": "app.js"
     },
     {
       "src": "/(.*)",
       "dest": "/frontend/todo/dist/$1"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/frontend/todo/dist/index.html"
     }
   ]
 }

@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css"
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import API_BASE_URL from "../../config";
 
 const Update = ({ display, update, updateArray }) => {
   const [Input, setInput] = useState({ title: "", body: "" });
