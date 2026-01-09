@@ -18,13 +18,8 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/todo/dist/$1"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/frontend/todo/dist/index.html"
+      "dest": "/frontend/todo/dist/$1",
+      "check": true
     }
   ]
 }
